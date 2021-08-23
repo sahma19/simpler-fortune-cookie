@@ -1,0 +1,20 @@
+version: "3"
+services: 
+    database: 
+        image: sahma19/simpler-fortune-cookie-app-database
+
+    frontend: 
+        image: sahma19/simpler-fortune-cookie-app-frontend
+        ports: 
+        - 8080:8080
+        depends_on:
+        - backend
+        environment:
+            - BACKEND_DNS=backend
+
+    backend: 
+        image: sahma19/simpler-fortune-cookie-app-backend
+        depends_on:
+        - database
+        environment: 
+            - REDIS_DNS=database
